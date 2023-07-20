@@ -1,7 +1,7 @@
 import { Collapse, Form, Input, Select, Space, Table, Empty, Card, Descriptions } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { getStandardColumn } from '../../shared/columns-display-helper';
-import './UserList.css';
+import './UserList.less';
 
 const { Panel } = Collapse;
 
@@ -73,7 +73,7 @@ const UserList: React.FC = () => {
   ];
 
   return (
-    <>
+    <div className='user-list-container'>
       <Collapse defaultActiveKey={["1"]} className="filter-collapse">
         <Panel header={"Filter"} key="1">
           <Form labelCol={{ span: 2 }}>
@@ -119,11 +119,12 @@ const UserList: React.FC = () => {
         </Panel>
       </Collapse>
       {windowWidth < 468 ?
-        userList.length > 0 ?
-          <Space wrap>
-            {userList.map((val) => {
+        sortedUsers.length > 0 ?
+          <Space wrap className='user-card-list'>
+            {sortedUsers.map((val,index) => {
               return (
                 <Card
+                key={index}
                   title={val.name}
                   bordered={true}
                   style={{ width: 300 }}>
@@ -147,7 +148,7 @@ const UserList: React.FC = () => {
               pageSizeOptions: [1, 2, 5, 10]
             }
           } />}
-    </>
+    </div>
   );
 };
 
